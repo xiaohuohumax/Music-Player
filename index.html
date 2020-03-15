@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>音乐播放器</title>
+    <script src="./script/vue.min.js"></script>
+    <script src="./script/jquery-3.3.1.js"></script>
+    <link rel="stylesheet" href="./css/musicPlayer.css">
+</head>
+
+<body>
+    <div id="musicPlayer">
+        <audio id="musicPlayerAudio"></audio>
+        <!-- 头部 -->
+        <div id="playerHead">
+            <div id="pHeadClick"></div>
+            <div id="pBHead" title="开始/下一首" class="playerButton" @click="pBHeadClick"
+                :class="[flagPlayOrPause?'pBStart_on':'pBStart_off']"></div>
+        </div>
+        <!-- 歌词 -->
+        <div id="playerLrc">{{musicWord}}</div>
+        <!-- 歌词回收 -->
+        <div id="palyerLrcClose" @click="pLrcCloseFun" :class="[flagPLrcClose?'palyerLrc_on':'palyerLrc_off']"
+            :title="[flagPLrcClose?'关闭':'开启']"></div>
+        <!-- 控件 以及 歌单 -->
+        <div id="playerControls" :class="[flagPConClose ? 'pControls_on':'pControls_off']">
+            <!-- 控件 -->
+            <div id="pConBody">
+                <div id="pBLeft" title="上一首" class="playerButton" @click="changeMusic(-1)"></div>
+                <div id="pBStart" class="playerButton" @click="playOrPause"
+                    :class="[flagPlayOrPause?'pBStart_on':'pBStart_off']" :title="[flagPLrcClose?'暂停':'开始']"></div>
+                <div id="pBRight" title="下一首" class="playerButton" @click="changeMusic(1)"></div>
+                <div id="pBAgain" class="playerButton" :class="musicModeList[musicPlayerMode]" @click="changeMode"
+                    :title="musicModeName[musicPlayerMode]">
+                </div>
+                <div id="pBTime" class="playerScroll">
+                    <div id="pBTimeItem" class="pScrollItem"></div>
+                    <div class="pScrollBlock"></div>
+                </div>
+                <div id="pBTimeNum" class="playerButton">00:00/00:00</div>
+                <div class="playerButton" :class="[flagSound?'pBSound_on':'pBSound_off']" @click="sound" title="音量">
+                </div>
+                <div id="pBLound" class="playerScroll">
+                    <div id="pBLoundItem" class="pScrollItem"></div>
+                    <div class="pScrollBlock"></div>
+                </div>
+                <div class="playerButton" @click="pListCloseFun" :class="[falgPListClose?'pBList_on':'pBList_off']"
+                    title="歌单">
+                </div>
+            </div>
+            <!-- 歌单列表 -->
+            <div id="pConList" :class="[falgPListClose ? 'pClt_on':'pClt_off',flagPConList?'pCLtTop':'pCLBottom']">
+                <div id="pCListItem">
+                    <div id="loading" v-if="musicList.length<=0">
+                        <div id="loading_1"></div>
+                        <div id="loading_2"></div>
+                        <div id="loading_3"></div>
+                    </div>
+                    <div :class="[nowMusicNumber==key?'pCListBody_on':'','pCListBody']" v-for="(user,key) in musicList"
+                        @click="setMusicNumber(key,true)">
+                        <span class="pcListNum">{{key+1}}</span>
+                        <span class="pcListName">{{user.musicName}}</span>
+                        <span class="pcListAuter">{{user.musicAuther}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 控件回收 -->
+        <div id="palyerConClose" @click="pConCloseFun" :class="[flagPConClose?'palyerCon_on':'palyerCon_off']"
+            :title="[flagPConClose?'关闭':'开启']"></div>
+    </div>
+    <script src="./script/musicPlayer.js"></script>
+</body>
+
+</html>

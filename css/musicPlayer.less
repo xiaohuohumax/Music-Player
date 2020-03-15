@@ -1,0 +1,355 @@
+@musicPlayerBlockSize: 50px; // 播放器大小
+
+// 文字不换行超出影藏
+.textOverflowHidden {
+    word-break : keep-all;
+    white-space: nowrap;
+    overflow   : hidden;
+}
+
+// 水平垂直居中
+.flexCenter {
+    display        : flex;
+    justify-content: center;
+    align-items    : center;
+}
+
+// 添加图标
+.icon(@url, @size: 160%, @otrher: rgba(0, 0, 0, 0)) {
+    background         : url(@url) no-repeat @otrher;
+    background-position: center;
+    background-size    : @size;
+}
+
+.addScroll(@father, @son) {
+    @{father} {
+        overflow: hidden;
+    }
+
+    @{son} {
+        width     : calc(100% + 17px);
+        overflow-y: scroll;
+        height    : 100%;
+    }
+}
+
+* {
+    padding: 0;
+    margin : 0;
+}
+
+#musicPlayer {
+    position   : fixed;
+    display    : none;
+    top        : 0;
+    left       : 0;
+    user-select: none;
+
+    .playerButton {
+        width        : calc(@musicPlayerBlockSize / 2);
+        height       : calc(@musicPlayerBlockSize / 2);
+        border-radius: 4px;
+        margin       : 0 5px;
+        cursor       : pointer;
+
+        &:hover {
+            transform: scale(1.2);
+        }
+    }
+
+    .playerScroll {
+        height       : 10px;
+        width        : 150px;
+        min-width    : 150px;
+        border       : 2px solid gray;
+        border-radius: 6px;
+        margin       : 0 5px;
+        position     : relative;
+        overflow: hidden;
+        & > div{
+            position        : absolute;
+            top             : 0;
+            left            : 0;
+        }
+        .pScrollBlock{
+            background: paleturquoise;
+            background: linear-gradient(45deg,paleturquoise,palegreen);
+            width: 0px;
+            z-index: 1;
+            height: 100%;
+        }
+
+        .pScrollItem {
+            width           : 10px;
+            height          : 10px;
+            border-radius   : 50%;
+            background-color: teal;
+            z-index: 2;
+            cursor          : pointer;
+        }
+    }
+
+
+    #playerHead {
+        width        : @musicPlayerBlockSize;
+        height       : @musicPlayerBlockSize;
+        border-radius: 8px 0 0 8px;
+        position     : relative;
+        .flexCenter;
+        background: palegreen;
+
+        #pHeadClick {
+            position: absolute;
+            width   : 100%;
+            height  : 100%;
+            z-index : 1;
+            cursor  : move;
+        }
+    }
+
+    #playerLrc {
+        width      : 0px;
+        font-size  : 20px;
+        font-weight: 600;
+        transition : width 1s linear;
+        text-align : center;
+        line-height: calc(@musicPlayerBlockSize - 3px);
+        .textOverflowHidden;
+        border-width: 1px 0;
+        background  : paleturquoise;
+    }
+
+    #palyerLrcClose {
+        width : calc(@musicPlayerBlockSize / 2);
+        cursor: pointer;
+    }
+
+    .palyerLrc_on {
+        .icon("../image/fdoi-arrow-left.png", 160%, palevioletred);
+    }
+
+    .palyerLrc_off {
+        .icon("../image/fdoi-arrow-right.png", 160%, palevioletred);
+
+    }
+
+    .pControls_on {
+        width: 532px;
+    }
+
+    .pControls_off {
+        width: 0;
+    }
+
+    #playerControls {
+        position    : relative;
+        transition  : all 1s linear;
+        border-width: 1px 0;
+        background  : peachpuff;
+
+        #pConBody {
+            height: 100%;
+            .flexCenter;
+            width   : 100%;
+            display : inline-flex;
+            overflow: hidden;
+
+            #pBTimeNum {
+                width      : auto;
+                font-size  : 12px;
+                line-height: calc(@musicPlayerBlockSize / 2);
+
+                &:hover {
+                    transform: scale(1);
+                }
+            }
+        }
+
+        .addScroll(~"#pConList", ~"#pCListItem");
+
+        .pClt_on {
+            height: 250px;
+        }
+
+        .pClt_off {
+            height: 0px;
+        }
+
+        #pConList {
+            position        : absolute;
+            width           : 100%;
+            background-color: powderblue;
+            transition      : all 0.5s linear;
+
+
+            #loading {
+                display   : inline-flex;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%,-50%);
+            }
+
+            @keyframes loadingMove {
+                75% {
+                    top: -15px;
+                }
+
+                0%,
+                50%,
+                100% {
+                    top: 0;
+                }
+
+                25% {
+                    top: 15px;
+                }
+            }
+
+            #loading>div {
+                position     : relative;
+                width        : 15px;
+                height       : 15px;
+                border-radius: 50%;
+                box-shadow   : 0 0 1px 1px rgba(248, 95, 95, 0.5);
+                margin       : 0 2px;
+            }
+
+            #loading_1 {
+                background: palegreen;
+                animation : loadingMove 1.5s linear infinite;
+            }
+
+            #loading_2 {
+                background     : paleturquoise;
+                animation      : loadingMove 1.5s linear infinite;
+                animation-delay: 0.25s;
+            }
+
+            #loading_3 {
+                animation      : loadingMove 1.5s linear infinite;
+                animation-delay: 0.5s;
+                background     : palegoldenrod;
+            }
+
+            #pCListItem {
+                .pCListBody {
+                    background   : #42b883;
+                    color: palegoldenrod;
+                    margin       : 3px;
+                    padding      : 3px;
+                    border-radius: 4px;
+                    display      : flex;
+                    font-size    : 14px;
+                    cursor       : pointer;
+                    .textOverflowHidden;
+
+                    &:hover {
+                        background: #ff7e67;
+                    }
+
+                    >span {
+                        padding-left: 10px;
+                        width       : 0;
+                    }
+
+                    .pcListNum {
+                        font-weight: 900;
+                        flex-grow  : 1;
+                    }
+
+                    .pcListName {
+                        flex-grow: 10;
+                    }
+
+                    .pcListAuter {
+                        flex-grow: 5;
+                    }
+                }
+
+                .pCListBody_on {
+                    background: #35495e;
+                    color: palevioletred;
+                }
+            }
+        }
+
+        .pCLtTop {
+            bottom       : 100%;
+            border-radius: 8px 8px 0 0;
+        }
+
+        .pCLBottom {
+            top          : 100%;
+            border-radius: 0 0 8px 8px;
+        }
+    }
+
+    #palyerConClose {
+        width        : calc(@musicPlayerBlockSize / 2);
+        border-radius: 0 8px 8px 0;
+        cursor       : pointer;
+    }
+
+    .palyerCon_on {
+        .icon("../image/fdoi-arrow-left.png", 160%, plum);
+    }
+
+    .palyerCon_off {
+        .icon("../image/fdoi-arrow-right.png", 160%, plum);
+    }
+
+    #pBHead,
+    #pBStart {
+        z-index: 2;
+    }
+
+    .pBStart_on {
+        .icon("../image/fdoi-play.png");
+    }
+
+    .pBStart_off {
+        .icon("../image/fdoi-pause.png");
+    }
+
+    .pBList_on {
+        .icon("../image/fdoi-fullscreen-exit.png", 130%);
+    }
+
+    .pBList_off {
+        .icon("../image/fdoi-fullscreen.png", 130%);
+    }
+
+    .pBAgain {
+        .icon("../image/replay.png", 70%);
+    }
+
+    .pBRandom {
+        .icon("../image/suiji-copy-copy.png", 120%);
+    }
+
+    .pBOnly {
+        .icon("../image/danquxunhuan.png", 80%);
+    }
+
+    .pBSound_on {
+        .icon("../image/fdoi-mute-volume-high.png", 120%);
+    }
+
+    .pBSound_off {
+        .icon("../image/fdoi-volume-high.png", 120%);
+    }
+
+    #pBLeft {
+        .icon("../image/angle-double-left.png", 100%);
+    }
+
+    #pBRight {
+        .icon("../image/angle-double-right.png", 100%);
+    }
+
+    #pBLound {
+        width    : 70px;
+        min-width: 70px;
+    }
+}
