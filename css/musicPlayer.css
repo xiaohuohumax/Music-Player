@@ -209,6 +209,7 @@
 }
 #musicPlayer #playerControls #pConList #pCListItem .pCListBody:hover {
   background: #ff7e67;
+  color: #42b883;
 }
 #musicPlayer #playerControls #pConList #pCListItem .pCListBody > span {
   padding-left: 10px;

@@ -1,4 +1,23 @@
-@musicPlayerBlockSize: 50px; // 播放器大小
+// 快速修改
+@bgHead          : palegreen; // 头部背景颜色
+@bgLrc           : paleturquoise; // 歌词背景颜色
+@bgLrcButton     : palevioletred; // 歌词开关按钮背景颜色
+@bgCon           : peachpuff; // 控件背景颜色
+@bgList          : powderblue; // 歌单背景颜色
+@bgListItem      : #42b883; // 歌单选项背景颜色
+@coListItem      : palegoldenrod; // 歌单选项文字颜色
+@bgListItemOn    : #35495e; // 歌单选项选中背景颜色
+@coListItemOn    : palevioletred; // 歌单选项选中文字颜色
+@bgListItemHover : #ff7e67; // 歌单选项悬停背景颜色
+@coListItemHover : #42b883; // 歌单选项悬停文字颜色
+@bgConButton     : plum; // 控件开关背景颜色
+@bgStroll        : linear-gradient(45deg, paleturquoise, palegreen); // 滑动条背景颜色
+@bgStrollButton  : paleturquoise; // 滑动条按钮背景颜色
+@bgStrollOutLine : 2px solid gray; // 滑动条边框线
+
+// 修改时请小心
+
+@musicPlayerBlockSize: 50px; // 播放器头部大小
 
 // 文字不换行超出影藏
 .textOverflowHidden {
@@ -61,22 +80,24 @@
         height       : 10px;
         width        : 150px;
         min-width    : 150px;
-        border       : 2px solid gray;
+        border       : @bgStrollOutLine;
         border-radius: 6px;
         margin       : 0 5px;
         position     : relative;
-        overflow: hidden;
-        & > div{
-            position        : absolute;
-            top             : 0;
-            left            : 0;
+        overflow     : hidden;
+
+        &>div {
+            position: absolute;
+            top     : 0;
+            left    : 0;
         }
-        .pScrollBlock{
-            background: paleturquoise;
-            background: linear-gradient(45deg,paleturquoise,palegreen);
-            width: 0px;
-            z-index: 1;
-            height: 100%;
+
+        .pScrollBlock {
+            background: @bgStrollButton;
+            background: @bgStroll;
+            width     : 0px;
+            z-index   : 1;
+            height    : 100%;
         }
 
         .pScrollItem {
@@ -84,7 +105,7 @@
             height          : 10px;
             border-radius   : 50%;
             background-color: teal;
-            z-index: 2;
+            z-index         : 2;
             cursor          : pointer;
         }
     }
@@ -96,7 +117,7 @@
         border-radius: 8px 0 0 8px;
         position     : relative;
         .flexCenter;
-        background: palegreen;
+        background: @bgHead;
 
         #pHeadClick {
             position: absolute;
@@ -116,7 +137,7 @@
         line-height: calc(@musicPlayerBlockSize - 3px);
         .textOverflowHidden;
         border-width: 1px 0;
-        background  : paleturquoise;
+        background  : @bgLrc;
     }
 
     #palyerLrcClose {
@@ -125,11 +146,11 @@
     }
 
     .palyerLrc_on {
-        .icon("../image/fdoi-arrow-left.png", 160%, palevioletred);
+        .icon("../image/fdoi-arrow-left.png", 160%, @bgLrcButton);
     }
 
     .palyerLrc_off {
-        .icon("../image/fdoi-arrow-right.png", 160%, palevioletred);
+        .icon("../image/fdoi-arrow-right.png", 160%, @bgLrcButton);
 
     }
 
@@ -145,7 +166,7 @@
         position    : relative;
         transition  : all 1s linear;
         border-width: 1px 0;
-        background  : peachpuff;
+        background  : @bgCon;
 
         #pConBody {
             height: 100%;
@@ -178,16 +199,16 @@
         #pConList {
             position        : absolute;
             width           : 100%;
-            background-color: powderblue;
+            background-color: @bgList ;
             transition      : all 0.5s linear;
 
 
             #loading {
-                display   : inline-flex;
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%,-50%);
+                display  : inline-flex;
+                position : absolute;
+                top      : 50%;
+                left     : 50%;
+                transform: translate(-50%, -50%);
             }
 
             @keyframes loadingMove {
@@ -234,8 +255,8 @@
 
             #pCListItem {
                 .pCListBody {
-                    background   : #42b883;
-                    color: palegoldenrod;
+                    background   : @bgListItem ;
+                    color        : @coListItem ;
                     margin       : 3px;
                     padding      : 3px;
                     border-radius: 4px;
@@ -245,7 +266,8 @@
                     .textOverflowHidden;
 
                     &:hover {
-                        background: #ff7e67;
+                        background: @bgListItemHover;
+                        color     : @coListItemHover;
                     }
 
                     >span {
@@ -268,8 +290,8 @@
                 }
 
                 .pCListBody_on {
-                    background: #35495e;
-                    color: palevioletred;
+                    background: @bgListItemOn;
+                    color     : @coListItemOn;
                 }
             }
         }
@@ -292,11 +314,11 @@
     }
 
     .palyerCon_on {
-        .icon("../image/fdoi-arrow-left.png", 160%, plum);
+        .icon("../image/fdoi-arrow-left.png", 160%, @bgConButton);
     }
 
     .palyerCon_off {
-        .icon("../image/fdoi-arrow-right.png", 160%, plum);
+        .icon("../image/fdoi-arrow-right.png", 160%, @bgConButton);
     }
 
     #pBHead,
