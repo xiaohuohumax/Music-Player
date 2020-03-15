@@ -89,7 +89,7 @@ $(window).ready(() => {
         mounted() {
             let _this = this;
             // 限制歌词与控件
-            _this.flagPConClose = !_this.flagPLrcClose;// 是否打开歌单
+            _this.flagPLrcClose?_this.flagPConClose = !_this.flagPLrcClose:"";// 是否打开歌单
             // 添加第一首歌
             _this.setMusicUrl();
             // 加载完成显示播放器
