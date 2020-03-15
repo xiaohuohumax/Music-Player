@@ -73,15 +73,18 @@ $(window).ready(() => {
             // 歌词控件监视
             'flagPLrcClose': function (newValue, oldValue) {
                 if (!newValue) {
-                    this.falgPListClose = false;
                     $(this.playerLrc).css({ "width": "0px" });
                 } else {
-                    this.falgPListClose = false;
                     this.flagPConClose = false;
                     $(this.playerLrc).css({
                         "width": (this.documentW() - parseInt($(this.musicPlayer).css("left")) * 2
                             - ($(this.playerHead).width() * 2)) + "px"
                     });
+                }
+            },
+            'flagPConClose':function(newValue, oldValue){
+                if (!newValue){
+                    this.falgPListClose = false;
                 }
             }
         },
