@@ -7,20 +7,22 @@
     <title>音乐播放器</title>
     <script src="./script/vue.min.js"></script>
     <script src="./script/jquery-3.3.1.js"></script>
+    <script src="./script/axios.min.js"></script>
+    <script src="./script/getLrc.js"></script>
     <link rel="stylesheet" href="./css/musicPlayer.css">
 </head>
 
 <body>
-    <div id="musicPlayer">
-        <audio id="musicPlayerAudio"></audio>
+    <div id="musicPlayer" ref="musicPlayer">
+        <audio ref="aduioId"></audio>
         <!-- 头部 -->
-        <div id="playerHead">
-            <div id="pHeadClick"></div>
+        <div id="playerHead" ref="playerHead">
+            <div id="pHeadClick" ref="pHeadClick"></div>
             <div id="pBHead" title="开始/下一首" class="playerButton" @click="pBHeadClick"
                 :class="[flagPlayOrPause?'pBStart_on':'pBStart_off']"></div>
         </div>
         <!-- 歌词 -->
-        <div id="playerLrc">{{musicWord}}</div>
+        <div id="playerLrc" ref="playerLrc">{{musicWord}}</div>
         <!-- 歌词回收 -->
         <div id="palyerLrcClose" @click="pLrcCloseFun" :class="[flagPLrcClose?'palyerLrc_on':'palyerLrc_off']"
             :title="[flagPLrcClose?'关闭':'开启']"></div>
@@ -35,16 +37,16 @@
                 <div id="pBAgain" class="playerButton" :class="musicModeList[musicPlayerMode]" @click="changeMode"
                     :title="musicModeName[musicPlayerMode]">
                 </div>
-                <div id="pBTime" class="playerScroll">
-                    <div id="pBTimeItem" class="pScrollItem"></div>
-                    <div class="pScrollBlock"></div>
+                <div id="pBTime" ref="pBTime" class="playerScroll">
+                    <div id="pBTimeItem" ref="pBTimeItem" class="pScrollItem"></div>
+                    <div class="pScrollBlock" ref="timeScroll"></div>
                 </div>
-                <div id="pBTimeNum" class="playerButton">00:00/00:00</div>
+                <div id="pBTimeNum" ref="pBTimeNum" class="playerButton">00:00/00:00</div>
                 <div class="playerButton" :class="[flagSound?'pBSound_on':'pBSound_off']" @click="sound" title="音量">
                 </div>
-                <div id="pBLound" class="playerScroll">
-                    <div id="pBLoundItem" class="pScrollItem"></div>
-                    <div class="pScrollBlock"></div>
+                <div id="pBLound" ref="pBLound" class="playerScroll">
+                    <div id="pBLoundItem" ref="pBLoundItem" class="pScrollItem"></div>
+                    <div class="pScrollBlock" ref="loundScroll"></div>
                 </div>
                 <div class="playerButton" @click="pListCloseFun" :class="[falgPListClose?'pBList_on':'pBList_off']"
                     title="歌单">
